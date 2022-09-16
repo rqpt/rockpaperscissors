@@ -1,50 +1,37 @@
-let roundResult;
+// Play the game by clicking on buttons on the screen.
 
-// Declare a function called game.
-// Declare counter variables called playerPoints, computerPoints 
-// loop the following five times-
-// call the playRound function
-// if playRound is equal to "You've won!", increment playerPoints by 1
-// else if playRound is equal to "You've lost :(", increment computerPoints by 1
+const buttons = document.querySelectorAll('button');
+buttons.forEach(button => button.addEventListener('click', playRound));
 
-// if playerPoints is a greater than computerPoints, console log "VICTORY"
-// else if playerPoints equals computerPoints, console log "TIE"
-// else if playerPoints is a lesser than computerPoints, console log "DEFEAT"
-//
-function game() {
-	let playerPoints = 0;
-	let computerPoints = 0;
+const resultsContainer = document.querySelector('.results-container');
 
-	for(let i = 0; i < 5; i++) {
-		playRound();
-		if (roundResult == "You've won!") {
-			++playerPoints;
-		} else if (roundResult == "You've lost :(") {
-			++computerPoints;
-		}
-		console.log(playerPoints);
-		console.log(computerPoints);
-	}
-	if (playerPoints > computerPoints) {
-		console.log("VICTORY");
-	} else if (playerPoints == computerPoints) {
-		console.log("TIE");
-	} else {
-		console.log("DEFEAT");
-	}
+const playerPara = document.createElement('p');
+const computerPara = document.createElement('p');
+const playerScore = document.createElement('p');
+const computerScore = document.createElement('p');
+const results = document.createElement('p');
+resultsContainer.appendChild(playerPara);
+resultsContainer.appendChild(computerPara);
+resultsContainer.appendChild(playerScore);
+resultsContainer.appendChild(computerScore);
+resultsContainer.appendChild(results);
+
+function playGame() {
+
 }
 
 function playRound() {
-	const playerSelection = prompt("Choose your weapon!").toUpperCase();
+	const playerSelection = this.innerText.toUpperCase();
 	const computerSelection = getComputerSelection();
-		console.log(playerSelection);
-		console.log(computerSelection);
+  playerPara.innerText = `Player choses ${playerSelection}.`;
+  computerPara.innerText = `Computer choses ${computerSelection}.`;
+
 	if (playerSelection === computerSelection) {
-		roundResult = "Tied";
+		results.innerText = "Tied";
 	} else if ((playerSelection === "ROCK" && computerSelection === "SCISSORS") || (playerSelection === "PAPER" && computerSelection === "ROCK") || (playerSelection === "SCISSORS" && computerSelection === "PAPER")) {
-		roundResult = "You've won!";
+		results.innerText = "You've won!";
 	} else {
-		roundResult = "You've lost :(";
+		results.innerText = "You've lost :(";
 	}
 }
 
